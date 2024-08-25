@@ -12,6 +12,8 @@ const countryElement = document.querySelector("#country");
 const humidityElement = document.querySelector("#humidity span");
 const windElement = document.querySelector("#wind span");
 
+const weatherContainer = document.querySelector("#weather-data")
+
 
 // Funções:
 const getWeatherData = async(city) => {
@@ -34,6 +36,8 @@ const showWeatherData = async (city) => {
    countryElement.setAttribute("src", `https://flagsapi.com/${data.sys.country}/flat/64.png`);
    humidityElement.innerText = `${data.main.humidity}%`;
    windElement.innerText = `${data.wind.speed}km/h`;
+
+   weatherContainer.classList.remove("hide"); //Remove a class hide(do html), e faz com que as informaçãoes apareçam
 };
 
 // Eventos:
@@ -43,3 +47,11 @@ serachBtn.addEventListener("click", (e) => {
 
     showWeatherData(city)
 });
+
+// Faz com que apertando o "Enter" tambem funcione e traga as informações 
+cityInput.addEventListener("keyup", (e) =>{
+    if(e.code === "Enter"){
+        const city = e.target.value;
+        showWeatherData(city);
+    }
+})
